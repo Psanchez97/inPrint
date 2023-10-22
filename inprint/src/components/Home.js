@@ -8,6 +8,9 @@ import car2 from './media/impresion2.webp';
 import car3 from './media/impresion3.webp';
 import fondoPNG from './media/fondo.png';
 import '@fortawesome/fontawesome-free/css/all.css';
+import LoginModal from './LoginModal'
+import RegisterModal from './RegisterModal'
+
 
 
 
@@ -24,8 +27,17 @@ class Home extends Component {
       carrusel2: car2, 
       carrusel3: car3, 
       errorMsg: '',
-
+      showLoginModalVar: false,
+      showRegisterModalVar: false,
     };
+
+    this.onClose = this.onClose.bind(this)
+    this.onCloseNav = this.onCloseNav.bind(this)
+    this.onCloseLog = this.onCloseLog.bind(this)
+    this.onCloseReg = this.onCloseReg.bind(this)
+    this.showLoginModal = this.showLoginModal.bind(this)
+    this.showRegisterModal = this.showRegisterModal.bind(this)
+
   }
 
   async componentDidMount(recalled = 0) {
@@ -77,6 +89,104 @@ class Home extends Component {
       this.setState({ errorHappened: true, errorMsg: 'Se ha producido un error no especificado' });
     } catch (err) {
       this.setState({ errorHappened: true, errorMsg: 'Se ha producido un problema al mostrar un mensaje de error general' });
+    }
+  }
+
+  async showLoginModal() {
+
+    try {
+
+      let showLoginModal = this.state.showLoginModalVar
+
+      if (showLoginModal) {
+        await this.setState({ showLoginModalVar: false })
+      } else {
+        await this.setState({ showLoginModalVar: true })
+
+      }
+    } catch (err) {
+      await this.setState({ errorHappened: true })
+      await this.setState({ errorMsg: 'Se ha producido un error al mostrar el elemento de Login' })
+
+    }
+
+  }
+
+  async showRegisterModal() {
+
+    try {
+
+      let showRegisterModal = this.state.showRegisterModalVar
+
+      if (showRegisterModal) {
+        await this.setState({ showRegisterModalVar: false })
+      } else {
+        await this.setState({ showRegisterModalVar: true })
+      }
+    } catch (err) {
+      await this.setState({ errorHappened: true })
+      await this.setState({ errorMsg: 'Se ha producido un error al mostrar el elemento de registro' })
+
+    }
+
+  }
+
+  async onCloseNav() {
+    try {
+      await this.setState({ showNavigatorModal: false });
+    } catch (err) {
+      await this.setState({ errorHappened: true })
+      await this.setState({ errorMsg: 'Se ha producido un error al cerrar el componente navegador' })
+
+    }
+
+  }
+
+  async onCloseLog() {
+    try {
+      await this.setState({ showLoginModalVar: false });
+    } catch (err) {
+      await this.setState({ errorHappened: true })
+      await this.setState({ errorMsg: 'Se ha producido un error al cerrar el componente Login' })
+
+    }
+
+  }
+
+  async onCloseReg() {
+    try {
+      await this.setState({ showRegisterModalVar: false });
+    } catch (err) {
+      await this.setState({ errorHappened: true })
+      await this.setState({ errorMsg: 'Se ha producido un error al cerrar el componente registro' })
+
+    }
+
+  }
+
+  async onClose() {
+    try {
+      await this.setState({ showModalActivity: false });
+
+      await this.setState({ showSendSmsActivity: false });
+
+      await this.setState({ showPeriodModal: false });
+
+      await this.setState({ showLastModal: false })
+
+      await this.setState({ askTacProvider: false })
+
+      await this.setState({ askContCred: false })
+
+      await this.setState({ newPassAsked: false })
+      await this.setState({ defaultComments: ""})
+      await this.setState({ defaultPlace: ""})
+      await this.setState({ defaultIdentifier: "" })
+
+      await this.setState({ showTripModal: false })
+    } catch (err) {
+      await this.setState({ errorHappened: true })
+      await this.setState({ errorMsg: 'Se ha producido un error (7)' })
     }
   }
 
@@ -132,7 +242,7 @@ class Home extends Component {
               <td style={{ width: '5%' }}>
               </td>
               <td style={{ width: '90%', textAlign: "center", fontWeight: "medium", textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)', }}>
-                <h1 class="display-1" style={{ color: "white", fontWeight: "medium" }}>Bienvenido a InPrint</h1>
+                <h1 class="display-1" style={{ color: "white", fontWeight: "medium" }}>Bienvenid@ a InPrint</h1>
                 <br/><br/><br/>
                 <h4 style={{ color: "white", fontWeight: "medium" }}>Haz realidad todos tus proyectos de impresión 3D o mecanizado</h4>
                 <h2 style={{ color: "#457AF3" }}>+</h2>
@@ -166,9 +276,6 @@ class Home extends Component {
             <tr style={{ width: '100%' }}>
               <td style={{ width: '17%' }}>
               </td>
-
-{/* ***************************************************************************************************************************carrusel */}
-
               <td style={{ width: '66%' }}>
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
                   <div class="carousel-indicators">
@@ -222,34 +329,78 @@ class Home extends Component {
         <br/><br/>
       </table>
 
-      
-
-      return (
-        
-        <div style={{width: winWidth, height: window.innerHeight > 1200 ? window.innerHeight : "auto" }}>
-          <Navbar 
-            winWidth={this.state.winWidth} 
-            winHeight={this.state.winHeight} 
-            showError={this.showError}
-            device={this.state.device}
-          />
-          
-          <div style={sectionStyle}>
-
-            {content}
-
+      if(this.state.showLoginModalVar===true){        
+        return (
+          <div>
+            <LoginModal 
+              putLoading={this.putLoading}
+              showError = {this.showError}
+              account={this.state.account} 
+              device= {this.state.device}
+              product={this.state.product}
+              selectProduct={this.selectProduct}
+              showCreationFields={this.showCreationFields}
+              usersEmployeeCount={this.usersEmployeeCount}
+              usersEmployeeLoad={this.usersEmployeeLoad}
+              userRole={this.state.userRole}
+              askNewPass={this.askNewPass}
+              selectANDirecto={this.selectANDirecto}
+              showANDirecto={this.state.showANDirecto}
+              showLoginModal={this.showLoginModal}
+              show={this.state.showLoginModalVar}
+              onCloseLog={this.onCloseLog}                
+            />
           </div>
-        
-        </div>
+        );        
+      }else if(this.state.showRegisterModalVar===true){
+        return (
+          <div>
+            <RegisterModal 
+              putLoading={this.putLoading}
+              showError = {this.showError}
+              account={this.state.account} 
+              device= {this.state.device}
+              product={this.state.product}
+              selectProduct={this.selectProduct}
+              showCreationFields={this.showCreationFields}
+              usersEmployeeCount={this.usersEmployeeCount}
+              usersEmployeeLoad={this.usersEmployeeLoad}
+              userRole={this.state.userRole}
+              askNewPass={this.askNewPass}
+              selectANDirecto={this.selectANDirecto}
+              showANDirecto={this.state.showANDirecto}
+              showRegisterModal={this.showRegisterModal}
+              show={this.state.showRegisterModalVar}
+              onCloseReg={this.onCloseReg}                
+            />
+          </div>
+        )
+      }else{
+          return (        
+            <div style={{width: winWidth, height: window.innerHeight > 1200 ? window.innerHeight : "auto" }}>
+              <Navbar 
+                winWidth={this.state.winWidth} 
+                winHeight={this.state.winHeight} 
+                showError={this.showError}
+                device={this.state.device}
+                showLoginModal={this.showLoginModal}
+                showRegisterModal={this.showRegisterModal}  
+              />              
+              <div style={sectionStyle}>    
+                {content}    
+              </div>            
+            </div> 
+          );
+    
+        }
 
-      );
     } catch (err) {
       console.error('Error en el bloque try-catch de render', err);
       this.setState({ errorHappened: true })
       this.setState({ errorMsg: 'Se ha producido un error no especificado, esta ventana se va a recargar' })
       setTimeout(() => window.location.reload(), 2000)
 
-    }
+      }    
   }
 }
 
