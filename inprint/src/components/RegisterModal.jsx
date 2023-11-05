@@ -1,53 +1,53 @@
 import React from "react";
 import { useContext, useState, useEffect } from "react";
-import reactGA from "react-ga";
 import { UserContext } from "../context/UserContext";
 import ErrorMessage from "./ErrorMessage";
-// import CustomSpinner from "./CustomSpinner";
-
 
 const RegisterModal = (props) => {
 
-    useEffect(() => {reactGA.pageview(window.location.pathname);}, []);
-
+    // Estados iniciales
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmationPassword, setConfirmationPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    const [, setToken] = useContext(UserContext);
+    const setToken = useContext(UserContext);
+
+    // Referencia al checkbox
     const checkBox = document.querySelector("#cbox1");
+
+    // Estado para el loader
     const [loader, setLoader] = useState(<div></div>);
+
+    // Librería para cifrar contraseñas
     const CryptoJS = require("crypto-js");
     const salt = "farm1990M0O";
     const salt1 = "f1nd1ngn3m0";
     const hashPassword = CryptoJS.SHA256(salt1 + password + salt).toString();
 
+    // Función para enviar el formulario de registro
     const submitRegistration = async () => {
-
-        //VARIABLES
-
-        let endpointlocal = "http://localhost:8000/api/users"
-        let response
+        // URL de la API
+        let endpoint = "http://localhost:8000/api/users";
+        let response;
         let requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            //Se cambia la palabra password por hashPassword
-            body: JSON.stringify({ email: email, hashed_password: hashPassword }),
+            // Cambia la palabra password por hashPassword
+            body: JSON.stringify({ email_usuario: email, contrasena_usuario: hashPassword }),
         };
         // setLoader(<CustomSpinner/>)
 
-        try{
-            response = await fetch(endpointlocal, requestOptions);
+        try {
+            response = await fetch(endpoint, requestOptions);
             if (!response.ok) {
                 throw new Error('Request failed with status ' + response.status);
-            }else{
+            } else {
                 // setLoader(<div></div>)
-                console.log("Usuario registrado")
-            }            
+                console.log("Usuario registrado");
+            }
         } catch (err) {
-
             // console.log("Register: Fallo en endpointlocal");
-            response= "error"
+            response = "error";
         }
 
         const data = await response.json();
@@ -55,29 +55,27 @@ const RegisterModal = (props) => {
         if (!response.ok) {
             setErrorMessage(data.detail);
         } else {
+            console.log("data.access_token: ", data.access_token);
             setToken(data.access_token);
         }
     }
 
+    // Función para manejar el envío del formulario
     const handleSubmit = (event) => {
         event.preventDefault();
         if (checkBox.checked) {
             if (password === confirmationPassword && password.length > 7) {
-                reactGA.event({
-                    action: "submit reg",
-                    label: "test label"
-                })
                 submitRegistration();
                 let estadoUsuario = localStorage.getItem("UserToken");
                 comprobarEstado();
 
                 function comprobarEstado() {
                     if (estadoUsuario !== "null") {
-                        window.location.reload()
-                    }
-                    else {
+                        window.location.reload();
+                    } else {
+                        console.log("estadoUsuario: ", estadoUsuario);
                         estadoUsuario = localStorage.getItem("UserToken");
-                        setTimeout(() => comprobarEstado(), 50);
+                        setTimeout(() => comprobarEstado(), 100);
                     }
                 }
             } else {
@@ -88,73 +86,46 @@ const RegisterModal = (props) => {
         }
     }
 
-    var show = true
+    // Lógica para mostrar u ocultar el modal
+    var show = true;
     var showHideClassName = show ? "modal display-block" : "modal display-none";
 
-
     return (
-        <div className={showHideClassName} nonce="kjcdhjkehfkldgso2379389xbagfjtdfdfg" style={{ textAlign: "center" }}>
-            <section className="modal-main" nonce="kjcdhjkehfkldgso2379389xbagfjtdfdfg" style={{ textAlign: "center", borderRadius:"10px", border:"1px solid silver", backgroundColor: '#e6e6fa' }}>
-                <div className="column">
-                    <form className="box" onSubmit={handleSubmit}>
-                        <h1 className="title has-text-centered">Crea un usuario</h1>
-                        <div className="field">
-                            <label className="label">Email</label>
-                            <div className="control">
-                                <input
-                                    type="email"
-                                    placeholder="Enter Email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    className="input"
-                                    required
-                                />
-                            </div>
+        <div className="container-fluid d-flex align-items-center justify-content-center" style={{ height: "100vh", backgroundImage: `url(${props.fondoFinal})`, backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundPosition: "top" }}>
+            <section style={{ borderRadius: "10px", border: "1px solid silver", backgroundColor: "white", padding: "20px", width: "50%" }}>
+                <h1 style={{ textAlign: "center", marginBottom: "20px" }}>Regístrate</h1>
+                    <form onSubmit={handleSubmit}>
+                        <div style={{ marginBottom: "10px" }}>
+                            <label>Email</label>
+                            <br/>
+                            <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" required />
                         </div>
-                        <div className="field">
-                            <label className="label">Contraseña</label>
-                            <div className="control">
-                                <input
-                                    type="password"
-                                    placeholder="Enter Password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    className="input"
-                                    required
-                                />
-                            </div>
+                        <div style={{ marginBottom: "10px" }}>
+                            <label>Contraseña</label>
+                            <br/>
+                            <input type="password" placeholder="Contraseña" value={password} onChange={(e) => setPassword(e.target.value)} className="form-control" required />
                         </div>
-                        <div className="field">
-                            <label className="label">Confirma tu contraseña</label>
-                            <div className="control">
-                                <input
-                                    type="password"
-                                    placeholder="Enter Password"
-                                    value={confirmationPassword}
-                                    onChange={(e) => setConfirmationPassword(e.target.value)}
-                                    className="input"
-                                    required
-                                />
-                            </div>
-                            <br></br>
+                        <div style={{ marginBottom: "10px" }}>
+                            <label>Contraseña</label>
+                            <br/>
+                                <input type="password" placeholder="Confirma tu contraseña" value={confirmationPassword} onChange={(e) => setConfirmationPassword(e.target.value)} className="form-control"  required/>
+                            <br/><br/>
                             <label>
                                 <input type="checkbox" id="cbox1" value="first_checkbox"></input> Acepto la <a href="/" target="_blank">Política de privacidad de In-Print</a></label><br></br>
                         </div>
                         <ErrorMessage message={errorMessage} />
-                        <br/>
+                        <br />
                         {/* {loader} */}
-                        <br/>
-                        <button className="button is-primary" style={{backgroundColor:'#0d6efd', borderColor:'#0d6efd'}} type="submit">
+                        <br />
+                        <button className="btn btn-primary" style={{ width: "100%", backgroundColor: "#7CF7AB", borderColor: "#7CF7AB" }} type="submit">
                             Guardar
                         </button>
-                    </form>
-                </div>
-                <button type="button" class="btn" nonce="kjcdhjkehfkldgso2379389xbagfjtdfdfg" style={{ width: "50%", marginBottom:"5px", border:"1px solid silver", backgroundColor:"white" }} onClick={props.onCloseReg}>
-                    Volver atrás
-                </button>
+                    </form>                
+                    <button className="btn" style={{ marginTop: "10px", width: "100%" }} onClick={props.onCloseReg}>
+                        Volver atrás
+                    </button>
             </section>
         </div>
-
     );
 }
 

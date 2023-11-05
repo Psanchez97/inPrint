@@ -1,4 +1,4 @@
-usuarios - id, nombre, contraseña, email, direccion
+usuarios - id, nombre, apellido, contraseña, email, direccion
 pedidos - id, fecha, estado, cliente
 archivos - id, nombre, ubicacion
 materiales - id, nombre, descripcion, precio

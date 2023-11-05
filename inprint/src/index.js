@@ -1,17 +1,26 @@
+
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css'
 import App from './components/Home';
-import reportWebVitals from './reportWebVitals';
+import {UserProvider} from "./context/UserContext";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+function Main() {
+
+  const isLocalhost = Boolean(
+    window.location.hostname === 'localhost' ||
+      window.location.hostname === '[::1]' ||
+      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/.test(window.location.hostname)
+  );
+
+
+  return (
+    <UserProvider>
+      <App />
+    </UserProvider>
+  );
+
+}
+
+ReactDOM.render(<Main />, document.getElementById('root'));

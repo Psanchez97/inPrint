@@ -10,81 +10,90 @@ export const UserProvider = (props) => {
     comprobarEstado();
 
     function comprobarEstado() {
-      if (estadoUsuario === "null" || estadoUsuario === null) {
-        window.location.reload();
-      } else {
-        estadoUsuario = localStorage.getItem("UserToken");
-        setTimeout(() => comprobarEstado(), 50);
-      }
+        if (estadoUsuario === "null" || estadoUsuario === null) {
+            window.location.reload()
+        }
+        else {
+            estadoUsuario = localStorage.getItem("UserToken");
+            setTimeout(() => comprobarEstado(), 50);
+        }
     }
   }
 
-  // VARIABLES
-
-  let endpointlocal = "http://localhost:8000/";
-
+  const endpoint = "http://localhost:8000/"
+  const endpoint2 = "http://localhost:8000/"
+  
+  
   useEffect(() => {
-    const fetchUser = async () => {
-      const requestOptions = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + token,
-        },
-      };
-
-      let response; // Declarar la variable response aquí
-
-      if (token === null) {
-        setToken(null);
-      }
-
-      if (token === "null") {
-        const requestOptions = {
+      const fetchUser = async () => {
+        
+        const requestOptions = await {
           method: "GET",
-          headers: {
-            "Content-Type": "application/json",
+          headers: { 
+          "Content-Type": "application/json",
+          "Authorization": "Bearer "+ token
           },
         };
 
-        try {
-          response = await fetch(endpointlocal + "api/users/visitaWeb", requestOptions);
-          if (!response.ok) {
-            throw new Error('Request failed with status ');
-          } else {
-            console.log("UserContext de endpointlocal");
+        
+        if(token === null) {
+            setToken(null);
+        } 
+        var response
+        if(token === "null"){
+                        
+              const requestOptions = await {
+                method: "GET",
+                headers: { 
+                "Content-Type": "application/json",
+                },
+              };
+             
+              try{
+               response = await fetch(endpoint + "api/users/visitaWeb", requestOptions);
+               if (!response.ok) {
+                throw new Error('Request failed with status ');
+              }
+            } catch{
+              response = await fetch(endpoint2 + "api/users/visitaWeb", requestOptions);
+            }
+            
+         // accesoWeb();
+                    
+        }else {
+          
+          try{
+             response = await fetch(endpoint + "api/users/me", requestOptions);
+             if (!response.ok) {
+              throw new Error('Request failed with status ' + response.status);
+            }
+          } catch {            
+              handleLogout()             
           }
-        } catch (err) {
-          console.log("UserContext: Fallo en endpointlocal");
-        }
-      } else {
-        try {
-          response = await fetch(endpointlocal + "api/users/visitaWeb", requestOptions);
-          if (!response.ok) {
-            throw new Error('Request failed with status ');
-          } else {
-            console.log("UserContext de endpointlocal");
+          localStorage.setItem("UserToken", token);
+            
+
+            if (response == null || (!response.ok && response.type === 'cors')) {
+            console.log("error api/users/me")
+            handleLogout()
           }
-        } catch (err) {
-          console.log("UserContext: Fallo en endpointlocal");
-          handleLogout();
-        }
-      }
-    
+          
+          
+          
+        }  
+      };
 
-      localStorage.setItem("UserToken", token);
-
-      if (response == null || (!response.ok && response.type === 'cors')) {
-        console.log("error api/users/me");
-        handleLogout();
-      }
-    }
     fetchUser();
+
+
   }, [token]);
 
-  return (
-    <UserContext.Provider value={[token, setToken]}>
-      {props.children}
-    </UserContext.Provider>
-  );
+  
+    return (
+      <UserContext.Provider value={[token, setToken ]} >
+          {props.children}
+      </UserContext.Provider>
+    );
+ 
+    
 };

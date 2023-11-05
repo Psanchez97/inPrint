@@ -52,7 +52,7 @@ class Navbar extends Component {
   };
 
   render() {
-    try{
+    // try{
 
         let relleno
 
@@ -91,7 +91,8 @@ class Navbar extends Component {
                   <form  style={{ width:"100%" }}
                          onSubmit={(event) => {
                          event.preventDefault()
-                         this.props.showRegisterModal()}}>
+                         this.props.showRegisterModal()
+                         }}>
                     <button  style={{ width:"100%" }} type="submit" className="btn btn-light">
                       Registrarse
                     </button>
@@ -103,7 +104,8 @@ class Navbar extends Component {
                   <form  style={{ width:"100%" }}
                          onSubmit={(event) => {
                          event.preventDefault()
-                         this.props.showLoginModal()}}>
+                         this.props.showLoginModal()
+                         }}>
                     <button  style={{ width:"100%" }} type="submit" className="btn btn-light">
                       Iniciar sesión
                     </button>
@@ -146,10 +148,10 @@ class Navbar extends Component {
         </nav>
       );
         
-    } catch(err) {
-      setTimeout(() => window.location.reload(), 2000);
-      return (<div>Error al cargar el Navegador</div>)
-    }  
+    // } catch(err) {
+    //   setTimeout(() => window.location.reload(), 2000);
+    //   return (<div>Error al cargar el Navegador</div>)
+    // }  
  }
 }
 
