@@ -1,0 +1,5 @@
+usuarios - id, nombre, apellido, contraseña, email, direccion
+pedidos - id, fecha, estado, cliente
+archivos - id, nombre, ubicacion
+materiales - id, nombre, descripcion, precio
+detalles pedido - relaciona pedido con material y cantidad

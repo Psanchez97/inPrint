@@ -1,12 +1,20 @@
 import React, { Component, useContext, useState } from 'react'
 import logo from './media/logo.png'
 import logoPNG from './media/logo2.png'
-
 // import Logout from './Logout'
 
 
 
 class Navbar extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      winWidth: 0,
+      winHeight: 0,
+      device: ""      
+    }
+  }
 
   async componentDidMount() {
 
@@ -43,25 +51,12 @@ class Navbar extends Component {
     }
   };
 
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      winWidth: 0,
-      winHeight: 0,
-      device: ""
-      
-    }
-  }
-
-
   render() {
-    try{ 
+    // try{
 
         let relleno
 
-        if (this.state.device === "desktop") {
-
+      if (this.props.userRole) {
           relleno =
           <table style={{width: "100%" }} >
             <tr style={{ width: "100%" }}>
@@ -77,47 +72,87 @@ class Navbar extends Component {
               </td>
             </tr>
           </table>
+      }else {
+        relleno =
+          <table style={{width: "100%" }} >
+            <tr style={{ width: "100%" }}>
+              <td style={{ width: "20%" }}>
+                <div style={{ width: "100%" }}>
+                  <button className="btn btn-light">Inicio</button>
+                </div>
+              </td>
+              <td style={{ width: "20%" }}>
+                <div style={{ width: "100%" }}>
+                  <button className="btn btn-light">Sobre nosotros</button>
+                </div>
+              </td>
+              <td style={{ width: "20%" }}>
+                <div style={{ width: "100%" }}>
+                  <form  style={{ width:"100%" }}
+                         onSubmit={(event) => {
+                         event.preventDefault()
+                         this.props.showRegisterModal()
+                         }}>
+                    <button  style={{ width:"100%" }} type="submit" className="btn btn-light">
+                      Registrarse
+                    </button>
+                  </form>
+                </div>
+              </td>
+              <td style={{ width: "20%" }}>
+                <div style={{ width: "100%" }}>
+                  <form  style={{ width:"100%" }}
+                         onSubmit={(event) => {
+                         event.preventDefault()
+                         this.props.showLoginModal()
+                         }}>
+                    <button  style={{ width:"100%" }} type="submit" className="btn btn-light">
+                      Iniciar sesión
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          </table>
 
+      }
+    
+      return(
 
-
-          return(
-
-            <nav style={{ width: "100%", height: "10%" }} className="navbar fixed-top bg-white flex-md-nowrap p-1 shadow">
-              <div style={{ color: "#484848", height: "100%", width: "100%" }}>
-                <table style={{ width: "100%", height: "100%" }}>
-                  <tbody style={{ width: "100%", height: "100%" }}>
-                    <tr style={{ width: "100%", height: "10%" }}>
-                    </tr>
-                    <tr style={{ width: "100%", height: "80%" }}>
-                      <td style={{ width: "35%" }}>
-                        <h1 style={{padding: "5px"}}>
-                          <a style={{ textDecoration: "none", color: "#5A5A5A", fontFamily: "Helvetica" }} href='/'>    
-                            <img src={logo} className="d-inline-block" style={{ width: "80px", height: "80%" }} alt="" 
-                                 onError={(e) => {e.target.src = logoPNG;}}/>
-                          </a>
-                        </h1>
-                      </td>    
-                      <td style={{ width: "30%", height: "80%" }}>    
-                      </td>
-                      <td style={{ width: "35%", height: "80%" }}>
-                        {relleno}
-                      </td>
-                    </tr>
-                    <tr style={{ width: "100%", height: "10%" }}>
-                    </tr>    
-                  </tbody>
-                </table>     
-              </div>
-            </nav>
-          );
-        }
-
-    } catch(err) {
-      setTimeout(() => window.location.reload(), 2000);
-      return (<div>Error al cargar el Navegador</div>)
-
-    }
-  }
+        <nav style={{ width: "100%", height: "10%" }} className="navbar fixed-top bg-white flex-md-nowrap p-1 shadow">
+          <div style={{ color: "#484848", height: "100%", width: "100%" }}>
+            <table style={{ width: "100%", height: "100%" }}>
+              <tbody style={{ width: "100%", height: "100%" }}>
+                <tr style={{ width: "100%", height: "10%" }}>
+                </tr>
+                <tr style={{ width: "100%", height: "80%" }}>
+                  <td style={{ width: "35%" }}>
+                    <h1 style={{padding: "5px"}}>
+                      <a style={{ textDecoration: "none", color: "#5A5A5A", fontFamily: "Helvetica" }} href='/'>    
+                        <img src={logo} className="d-inline-block" style={{ width: "80px", height: "80%" }} alt="" 
+                              onError={(e) => {e.target.src = logoPNG;}}/>
+                      </a>
+                    </h1>
+                  </td>    
+                  <td style={{ width: "30%", height: "80%" }}>    
+                  </td>
+                  <td style={{ width: "35%", height: "80%" }}>
+                    {relleno}
+                  </td>
+                </tr>
+                <tr style={{ width: "100%", height: "10%" }}>
+                </tr>    
+              </tbody>
+            </table>     
+          </div>
+        </nav>
+      );
+        
+    // } catch(err) {
+    //   setTimeout(() => window.location.reload(), 2000);
+    //   return (<div>Error al cargar el Navegador</div>)
+    // }  
  }
+}
 
 export default Navbar;
