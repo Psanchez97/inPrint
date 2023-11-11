@@ -56,13 +56,16 @@ class Navbar extends Component {
 
         let relleno
 
-      if (this.props.userRole) {
-          relleno =
-          <table style={{width: "100%" }} >
+      if (this.props.token==="null"|| this.props.token===null || this.props.token==="") {
+
+        console.log("Entro al token null de navbar")
+
+        relleno =
+          <table style={{width: "100%", backgroundColor: "#7CF7AB", padding: "10px", borderRadius: "10px" }} >
             <tr style={{ width: "100%" }}>
               <td style={{ width: "20%" }}>
-                <div style={{ width: "100%" }}>
-                  <button className="btn btn-light">Inicio</button>
+                <div style={{ width: "100%", marginTop: "10px", marginBottom: "10px", marginLeft: "10px" }}>
+                  <button className="btn btn-light" >Inicio</button>
                 </div>
               </td>
               <td style={{ width: "20%" }}>
@@ -74,16 +77,16 @@ class Navbar extends Component {
           </table>
       }else {
         relleno =
-          <table style={{width: "100%" }} >
+          <table style={{width: "100%", backgroundColor: "#7CF7AB", padding: "10px", borderRadius: "10px" }} >
             <tr style={{ width: "100%" }}>
               <td style={{ width: "20%" }}>
-                <div style={{ width: "100%" }}>
-                  <button className="btn btn-light">Inicio</button>
+                <div style={{ width: "100%", marginTop: "10px", marginBottom: "10px", marginLeft: "10px" }}>
+                  <button className="btn btn-light" style={{ width: "150px" }}>Inicio</button>
                 </div>
               </td>
               <td style={{ width: "20%" }}>
                 <div style={{ width: "100%" }}>
-                  <button className="btn btn-light">Sobre nosotros</button>
+                  <button className="btn btn-light" style={{ width: "150px" }}>Sobre nosotros</button>
                 </div>
               </td>
               <td style={{ width: "20%" }}>
@@ -93,7 +96,7 @@ class Navbar extends Component {
                          event.preventDefault()
                          this.props.showRegisterModal()
                          }}>
-                    <button  style={{ width:"100%" }} type="submit" className="btn btn-light">
+                    <button  type="submit" className="btn btn-light" style={{ width: "150px" }}>
                       Registrarse
                     </button>
                   </form>
@@ -106,7 +109,7 @@ class Navbar extends Component {
                          event.preventDefault()
                          this.props.showLoginModal()
                          }}>
-                    <button  style={{ width:"100%" }} type="submit" className="btn btn-light">
+                    <button  type="submit" className="btn btn-light" style={{ width: "150px" }}>
                       Iniciar sesión
                     </button>
                   </form>
