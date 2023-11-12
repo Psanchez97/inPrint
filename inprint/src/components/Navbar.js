@@ -1,8 +1,7 @@
 import React, { Component, useContext, useState } from 'react'
 import logo from './media/logo.png'
 import logoPNG from './media/logo2.png'
-// import Logout from './Logout'
-
+import Logout from './Logout'
 
 
 class Navbar extends Component {
@@ -12,23 +11,23 @@ class Navbar extends Component {
     this.state = {
       winWidth: 0,
       winHeight: 0,
-      device: ""      
+      device: "",
     }
   }
 
   async componentDidMount() {
 
     try{
-      let winWidth = await window.innerWidth
-      let winHeight = await window.innerHeight
-      let device = await this.getDeviceType()
+      let winWidth =  window.innerWidth
+      let winHeight =  window.innerHeight
+      let device =  this.getDeviceType()
 
-      await this.setState({ winWidth: winWidth })
-      await this.setState({ winHeight: winHeight })
-      await this.setState({ device: device })
+       this.setState({ winWidth: winWidth })
+       this.setState({ winHeight: winHeight })
+       this.setState({ device: device })
     } catch (err) {
-      await this.setState({ errorHappened: true })
-      await this.setState({ errorMsg: 'Se ha producido un error en el navegador' })
+       this.setState({ errorHappened: true })
+       this.setState({ errorMsg: 'Se ha producido un error en el navegador' })
 
     }
   }
@@ -56,64 +55,101 @@ class Navbar extends Component {
 
         let relleno
 
-      if (this.props.userRole) {
+        console.log("token de navbar: ",this.props.userToken)
+
+        //si hay token
+        if (this.props.userToken !== "null") {
+
+            //con cerrar sesion
+            relleno =
+              <table style={{width: "100%", backgroundColor: "#7CF7AB", padding: "10px", borderRadius: "10px" }} >
+                <tr style={{ width: "100%" }}>
+                  <td style={{ width: "20%" }}>
+                    <div style={{ width: "100%", marginTop: "10px", marginBottom: "10px", marginLeft: "10px" }}>
+                      <button className="btn btn-light" style={{ width: "150px" }}>Inicio</button>
+                    </div>
+                  </td>
+                  <td style={{ width: "20%" }}>
+                    <div style={{ width: "100%" }}>
+                      <button className="btn btn-light" style={{ width: "150px" }}>Sobre nosotros</button>
+                    </div>
+                  </td>
+                  <td style={{ width: "20%" }}>
+                    <div style={{ width: "100%" }}>
+                      <form  style={{ width:"100%" }}
+                            onSubmit={(event) => {
+                            event.preventDefault()
+                            alert("Botón en proceso de implementación")
+                            }}>
+                        <button  type="submit" className="btn btn-light" style={{ width: "150px" }}>
+                          Más acciones
+                        </button>
+                      </form>
+                    </div>
+                  </td>
+                  <td style={{ width: "20%" }}>
+                    <Logout />
+                    {/* <div style={{ width: "100%" }}>
+                      <form  style={{ width:"100%" }}
+                            onSubmit={(event) => {
+                            event.preventDefault()
+                            this.setState({ userToken: "null" })
+                            }}>
+                        <button  type="submit" className="btn btn-light" style={{ width: "150px" }}>
+                          Cerrar sesión
+                        </button>
+                      </form>
+                    </div> */}
+                  </td>
+                </tr>
+              </table>
+          
+        }
+        //si no hay token
+        else{
+
+          //sin cerrar sesion
           relleno =
-          <table style={{width: "100%" }} >
-            <tr style={{ width: "100%" }}>
-              <td style={{ width: "20%" }}>
-                <div style={{ width: "100%" }}>
-                  <button className="btn btn-light">Inicio</button>
-                </div>
-              </td>
-              <td style={{ width: "20%" }}>
-                <div style={{ width: "100%" }}>
-                  <button className="btn btn-light">Sobre nosotros</button>
-                </div>
-              </td>
-            </tr>
-          </table>
-      }else {
-        relleno =
-          <table style={{width: "100%" }} >
-            <tr style={{ width: "100%" }}>
-              <td style={{ width: "20%" }}>
-                <div style={{ width: "100%" }}>
-                  <button className="btn btn-light">Inicio</button>
-                </div>
-              </td>
-              <td style={{ width: "20%" }}>
-                <div style={{ width: "100%" }}>
-                  <button className="btn btn-light">Sobre nosotros</button>
-                </div>
-              </td>
-              <td style={{ width: "20%" }}>
-                <div style={{ width: "100%" }}>
-                  <form  style={{ width:"100%" }}
-                         onSubmit={(event) => {
-                         event.preventDefault()
-                         this.props.showRegisterModal()
-                         }}>
-                    <button  style={{ width:"100%" }} type="submit" className="btn btn-light">
-                      Registrarse
-                    </button>
-                  </form>
-                </div>
-              </td>
-              <td style={{ width: "20%" }}>
-                <div style={{ width: "100%" }}>
-                  <form  style={{ width:"100%" }}
-                         onSubmit={(event) => {
-                         event.preventDefault()
-                         this.props.showLoginModal()
-                         }}>
-                    <button  style={{ width:"100%" }} type="submit" className="btn btn-light">
-                      Iniciar sesión
-                    </button>
-                  </form>
-                </div>
-              </td>
-            </tr>
-          </table>
+            <table style={{width: "100%", backgroundColor: "#7CF7AB", padding: "10px", borderRadius: "10px" }} >
+              <tr style={{ width: "100%" }}>
+                <td style={{ width: "20%" }}>
+                  <div style={{ width: "100%", marginTop: "10px", marginBottom: "10px", marginLeft: "10px" }}>
+                    <button className="btn btn-light" style={{ width: "150px" }}>Inicio</button>
+                  </div>
+                </td>
+                <td style={{ width: "20%" }}>
+                  <div style={{ width: "100%" }}>
+                    <button className="btn btn-light" style={{ width: "150px" }}>Sobre nosotros</button>
+                  </div>
+                </td>
+                <td style={{ width: "20%" }}>
+                  <div style={{ width: "100%" }}>
+                    <form  style={{ width:"100%" }}
+                          onSubmit={(event) => {
+                          event.preventDefault()
+                          this.props.showRegisterModal()
+                          }}>
+                      <button  type="submit" className="btn btn-light" style={{ width: "150px" }}>
+                        Registrarse
+                      </button>
+                    </form>
+                  </div>
+                </td>
+                <td style={{ width: "20%" }}>
+                  <div style={{ width: "100%" }}>
+                    <form  style={{ width:"100%" }}
+                          onSubmit={(event) => {
+                          event.preventDefault()
+                          this.props.showLoginModal()
+                          }}>
+                      <button  type="submit" className="btn btn-light" style={{ width: "150px" }}>
+                        Iniciar sesión
+                      </button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            </table>
 
       }
     

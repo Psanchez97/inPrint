@@ -63,14 +63,9 @@ const LoginModal = (props) => {
   };
 
   const handleSubmit = async (e) => {
-    console.log("entrando");
     e.preventDefault();
     await submitLogin();
   };
-
-  var show = true;
-  var showHideClassName = show ? "modal display-block" : "modal display-none";
-
 
   return (
     <div className="container-fluid d-flex align-items-center justify-content-center" style={{ height: "100vh", backgroundImage: `url(${props.fondoFinal})`, backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundPosition: "top" }}>
@@ -89,11 +84,11 @@ const LoginModal = (props) => {
         </div>
         <ErrorMessage message={errorMessage} />
         <button className="btn btn-primary" style={{ width: "100%", backgroundColor: "#7CF7AB", borderColor: "#7CF7AB" }} type="submit">
-            Entrar
+          Entrar
         </button>
         </form>
         <button className="btn" style={{ marginTop: "10px", width: "100%" }} onClick={props.onCloseLog}>
-        Volver atrás
+          Volver atrás
         </button>
     </section>
     </div>
