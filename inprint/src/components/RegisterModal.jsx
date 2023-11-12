@@ -10,7 +10,7 @@ const RegisterModal = (props) => {
     const [password, setPassword] = useState("");
     const [confirmationPassword, setConfirmationPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    const setToken = useContext(UserContext);
+    const [,setToken] = useContext(UserContext);
 
     // Referencia al checkbox
     const checkBox = document.querySelector("#cbox1");

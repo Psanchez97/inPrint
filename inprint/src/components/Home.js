@@ -61,23 +61,14 @@ class Home extends Component {
       this.setState({ fondoFinal: fondoAvif });
     };
 
-    try {
-      let deviceType = await this.getDeviceType();
-      let winWidth = window.innerWidth;
-      let token= await localStorage.getItem('UserToken')
-      await this.handleToken(token);
-      this.setState({ winWidth: winWidth, device: deviceType });
-    } catch (err) {
-      console.log("Estás en el catch", err);
-    }
-  }
+    let deviceType = await this.getDeviceType();
+    let winWidth = window.innerWidth;
+    let token= localStorage.getItem('UserToken')
+    console.log("token de componentDidMount: ",token)
+    this.setState({winWidth: winWidth,
+                   device: deviceType,
+                   userToken: token});
 
-  async handleToken(token) {
-    try {
-      this.setState({ token: token });
-    }catch (err) {
-      console.log("No se ha podido guardar el token", err);
-    }
   }
 
   async getDeviceType() {
@@ -97,6 +88,7 @@ class Home extends Component {
       throw err;
     }
   }
+
 
   async showError() {
     try {
@@ -275,7 +267,7 @@ class Home extends Component {
 
         console.log("token que llega a home: " + this.state.userToken)
 
-        if (this.state.userToken !== null) {
+        if (this.state.userToken !== "null") {
 
         //aspecto visual con token
         content = 
@@ -438,6 +430,8 @@ class Home extends Component {
                 device={this.state.device}
                 showLoginModal={this.showLoginModal}
                 showRegisterModal={this.showRegisterModal}
+                userToken={this.state.userToken}
+                deleteToken={this.deleteToken}
               />              
               <div style={{width: "100%",
                             height: "100%",
