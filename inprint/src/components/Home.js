@@ -273,34 +273,38 @@ class Home extends Component {
         )        
       }else{
 
-        //aspecto visual con token
-        // content = 
-        //   <table style={{ width: '100%', }}>
-        //     {spacer}
-        //     <tbody>
-        //       <tr>
-        //         <td style={{ verticalAlign: "top", width: "2%" }}>
-        //         </td>
-        //         <td style={{ verticalAlign: "top", width: "30%" }}>
-        //           <div class="col">
-        //             {actions}
-        //           </div>
-        //         </td>
-        //         <td style={{ verticalAlign: "top", width: "2%" }}>
-        //         </td>
-        //         <td style={{ verticalAlign: "top", width: "64%" }}>
-        //           <div class="col">
-        //             {pedidos}
-        //           </div>
-        //         </td>
-        //         <td style={{ verticalAlign: "top", width: "2%" }}>
-        //         </td>
-        //       </tr>
-        //     </tbody>         
-        //     <br />
-        //     <br />
-        //   </table>            
+        console.log("token que llega a home: " + this.state.userToken)
 
+        if (this.state.userToken !== null) {
+
+        //aspecto visual con token
+        content = 
+          <table style={{ width: '100%', }}>
+            {spacer}
+            <tbody>
+              <tr>
+                <td style={{ verticalAlign: "top", width: "2%" }}>
+                </td>
+                <td style={{ verticalAlign: "top", width: "30%" }}>
+                  <div class="col">
+                    {actions}
+                  </div>
+                </td>
+                <td style={{ verticalAlign: "top", width: "2%" }}>
+                </td>
+                <td style={{ verticalAlign: "top", width: "64%" }}>
+                  <div class="col">
+                    {pedidos}
+                  </div>
+                </td>
+                <td style={{ verticalAlign: "top", width: "2%" }}>
+                </td>
+              </tr>
+            </tbody>         
+            <br />
+            <br />
+          </table>            
+        }else{
 
         //aspecto visual sin token
         content = 
@@ -422,9 +426,8 @@ class Home extends Component {
                 </td>
             </tr>
           </table>
-      
+        }
         
-        console.log("Entramos en el else con el return")
 
           return (        
             <div style={{width: "100%", height: "100vh" }}>

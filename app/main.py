@@ -88,7 +88,7 @@ async def visista_web():
 @app.get("/api/users/me", response_model=schemas.User)
 async def get_user(user: schemas.User = Depends(get_current_user)):
     # Devuelve el usuario
-    try:
+    try:        
         return user
     except:
         raise HTTPException(status_code=404, detail="We couldn't find this user")

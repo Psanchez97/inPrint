@@ -86,9 +86,6 @@ const RegisterModal = (props) => {
         }
     }
 
-    // Lógica para mostrar u ocultar el modal
-    var show = true;
-    var showHideClassName = show ? "modal display-block" : "modal display-none";
 
     return (
         <div className="container-fluid d-flex align-items-center justify-content-center" style={{ height: "100vh", backgroundImage: `url(${props.fondoFinal})`, backgroundRepeat: "no-repeat", backgroundSize: "cover", backgroundPosition: "top" }}>
