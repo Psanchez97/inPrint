@@ -1,6 +1,6 @@
 import React, { Component, useContext, useState } from 'react'
 import logo from './media/logo.png'
-import logoPNG from './media/logo2.png'
+import logo2 from './media/logo2.png'
 import Logout from './Logout'
 
 
@@ -165,8 +165,8 @@ class Navbar extends Component {
                   <td style={{ width: "35%" }}>
                     <h1 style={{padding: "5px"}}>
                       <a style={{ textDecoration: "none", color: "#5A5A5A", fontFamily: "Helvetica" }} href='/'>    
-                        <img src={logo} className="d-inline-block" style={{ width: "80px", height: "80%" }} alt="" 
-                              onError={(e) => {e.target.src = logoPNG;}}/>
+                        <img src={logo2} className="d-inline-block" style={{ height: "70px" }} alt="" 
+                              onError={(e) => {e.target.src = logo;}}/>
                       </a>
                     </h1>
                   </td>    
