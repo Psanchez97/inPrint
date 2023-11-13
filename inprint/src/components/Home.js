@@ -12,6 +12,7 @@ import LoginModal from './LoginModal'
 import RegisterModal from './RegisterModal'
 import UploadFile from './UploadFile';
 import GeneralView from './GeneralView';
+import Footer from './Footer';
 
 
 
@@ -206,7 +207,9 @@ class Home extends Component {
             
     //VARIABLES DE RENDER
 
-      let footer = <div></div>;
+      let footer = <Footer
+                    userToken={this.state.userToken}
+                    />;
 
       let error= <div></div>;
       
@@ -343,8 +346,6 @@ class Home extends Component {
                 <br />
                 <br />
                 <br />
-                <br />
-                <br />
                 <div
                   style={{
                     display: 'inline-block',
@@ -360,13 +361,16 @@ class Home extends Component {
                       top: document.documentElement.scrollHeight - window.innerHeight,
                       behavior: 'smooth'
                     });
-                                      }}
+                  }}
                 >
                   <h3 style={{ color: '#5A5A5A', fontWeight: 'medium', margin: 0, textShadow: 'none' }}>
                     <i className="fas fa-arrow-down"></i> Aquí puedes ver algunos de nuestros trabajos{' '}
                     <i className="fas fa-arrow-down"></i>
                   </h3>
                 </div>
+                <br />
+                <br />
+
                 <br />
               </td>
               <td style={{ width: '5%' }}></td>
@@ -443,8 +447,13 @@ class Home extends Component {
                   {loader}
                   {content}              
                   {table}
-              </div>            
-                {footer}            
+                  <br />
+                  <br />
+
+              </div>
+              <div>
+                {footer}
+              </div>
             </div>
           );
     
