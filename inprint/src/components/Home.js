@@ -313,7 +313,7 @@ class Home extends Component {
                   width: '90%',
                   textAlign: 'center',
                   fontWeight: 'medium',
-                  textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+                  textShadow: '2px 2px 4px rgba(0, 0, 0, 4)',
                 }}
               >
                 <h1 class="display-1" style={{ color: 'white', fontWeight: 'medium' }}>
@@ -322,23 +322,23 @@ class Home extends Component {
                 <br />
                 <br />
                 <br />
-                <h4 style={{ color: 'white', fontWeight: 'medium' }}>
+                <h3 style={{ color: 'white', fontWeight: 'medium' }}>
                   Haz realidad todos tus proyectos de impresión 3D o mecanizado
-                </h4>
+                </h3>
                 <h2 style={{ color: '#7CF7AB' }}>+</h2>
-                <h4 style={{ color: 'white', fontWeight: 'medium' }}>
+                <h3 style={{ color: 'white', fontWeight: 'medium' }}>
                   Consulta en todo momento el estado de tu pedido
-                </h4>
+                </h3>
                 <h2 style={{ color: '#7CF7AB' }}>+</h2>
-                <h4 style={{ color: 'white', fontWeight: 'medium' }}>Calcula los costes asociados a tu pedido</h4>
+                <h3 style={{ color: 'white', fontWeight: 'medium' }}>Calcula los costes asociados a tu pedido</h3>
                 <h2 style={{ color: '#7CF7AB' }}>+</h2>
-                <h4 style={{ color: 'white', fontWeight: 'medium' }}>
+                <h3 style={{ color: 'white', fontWeight: 'medium' }}>
                   Utilizamos los mejores materiales del mercado, solo primeras marcas
-                </h4>
+                </h3>
                 <h2 style={{ color: '#7CF7AB' }}>+</h2>
-                <h4 style={{ color: 'white', fontWeight: 'medium' }}>
+                <h3 style={{ color: 'white', fontWeight: 'medium' }}>
                   Mecanizamos en 3 y 5 ejes en función de la complejidad de tu proyecto
-                </h4>
+                </h3>
                 <br />
                 <br />
                 <br />
@@ -362,10 +362,10 @@ class Home extends Component {
                     });
                                       }}
                 >
-                  <h4 style={{ color: '#5A5A5A', fontWeight: 'medium', margin: 0, textShadow: 'none' }}>
+                  <h3 style={{ color: '#5A5A5A', fontWeight: 'medium', margin: 0, textShadow: 'none' }}>
                     <i className="fas fa-arrow-down"></i> Aquí puedes ver algunos de nuestros trabajos{' '}
                     <i className="fas fa-arrow-down"></i>
-                  </h4>
+                  </h3>
                 </div>
                 <br />
               </td>
