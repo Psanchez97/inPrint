@@ -7,7 +7,6 @@ const Logout = () => {
 
     //Borrar usuario actual del local data y recargar la página
     const handleLogout = () => {
-        console.log("Cerrando sesión");
         let estadoUsuario = localStorage.getItem("UserToken");
         setToken(null);
         comprobarEstado();
