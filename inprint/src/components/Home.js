@@ -65,7 +65,6 @@ class Home extends Component {
     let deviceType = await this.getDeviceType();
     let winWidth = window.innerWidth;
     let token= localStorage.getItem('UserToken')
-    console.log("token de componentDidMount: ",token)
     this.setState({winWidth: winWidth,
                    device: deviceType,
                    userToken: token});
@@ -268,7 +267,6 @@ class Home extends Component {
         )        
       }else{
 
-        console.log("token que llega a home: " + this.state.userToken)
 
         if (this.state.userToken !== "null") {
 

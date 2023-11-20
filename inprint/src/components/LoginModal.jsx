@@ -34,7 +34,6 @@ const LoginModal = (props) => {
       if (!response.ok) {
         throw new Error('Request failed with status ' + response.status);
       } else {
-        console.log("Nos hemos autenticado");
       }
     } catch (err) {
       if (response && response.status === 401) {
@@ -46,7 +45,6 @@ const LoginModal = (props) => {
       console.log("Fallo al autenticar");
     }
 
-    console.log("Salimos de las comprobaciones de login");
 
     let estadoUsuario = localStorage.getItem("UserToken");
     setToken(data.access_token);

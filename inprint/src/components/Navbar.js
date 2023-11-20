@@ -55,7 +55,6 @@ class Navbar extends Component {
 
         let relleno
 
-        console.log("token de navbar: ",this.props.userToken)
 
         //si hay token
         if (this.props.userToken !== "null") {

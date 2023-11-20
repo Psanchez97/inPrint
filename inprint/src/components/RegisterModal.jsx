@@ -35,7 +35,6 @@ const RegisterModal = (props) => {
             // Cambia la palabra password por hashPassword
             body: JSON.stringify({ email_usuario: email, contrasena_usuario: hashPassword }),
         };
-        // setLoader(<CustomSpinner/>)
 
         try {
             response = await fetch(endpoint, requestOptions);
@@ -43,10 +42,8 @@ const RegisterModal = (props) => {
                 throw new Error('Request failed with status ' + response.status);
             } else {
                 // setLoader(<div></div>)
-                console.log("Usuario registrado");
             }
         } catch (err) {
-            // console.log("Register: Fallo en endpointlocal");
             response = "error";
         }
 
@@ -55,7 +52,6 @@ const RegisterModal = (props) => {
         if (!response.ok) {
             setErrorMessage(data.detail);
         } else {
-            console.log("data.access_token: ", data.access_token);
             setToken(data.access_token);
         }
     }
@@ -73,7 +69,6 @@ const RegisterModal = (props) => {
                     if (estadoUsuario !== "null") {
                         window.location.reload();
                     } else {
-                        console.log("estadoUsuario: ", estadoUsuario);
                         estadoUsuario = localStorage.getItem("UserToken");
                         setTimeout(() => comprobarEstado(), 100);
                     }

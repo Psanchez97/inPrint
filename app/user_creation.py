@@ -36,7 +36,6 @@ async def create_user(
             raise HTTPException(status_code=401, detail="Email ya registrado")
 
         # en caso de que no haya saltado la excepción, que detiene el código, se crea y se le devuelve el token
-        print("create token 1")
         return await create_token(userOld)
 
     # except:
@@ -61,26 +60,21 @@ async def create_user(
             # si estabamos creando un usuario, no hace falta un token para que se identifique, simplemente devolvemos el usuario
             return db_user
         else:
-            print("create token 2")
             return await create_token(db_user)
     except:
        raise HTTPException(status_code=400, detail="Email already registered")
 
 async def authenticate_user(email: str, password: str, db):
     # try:
-    print("email: " + email)
     user = await get_user_by_email(email, db)
     # coge el usuario desde el mail y comprueba sin la contraseña es correcta
 
     if not user:
-        print("returning false 1")
         return False
     
     if not user.verify_password(password):
-        print("returning false 2")
         return False
     
-    print("returning true")
     return user
 
     # except:
